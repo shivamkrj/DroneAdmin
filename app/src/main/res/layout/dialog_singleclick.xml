@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+    <android.support.constraint.ConstraintLayout android:layout_marginBottom="10dp" android:layout_height="match_parent" android:layout_width="match_parent" xmlns:tools="http://schemas.android.com/tools" xmlns:app="http://schemas.android.com/apk/res-auto" xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <TextView
+        android:id="@+id/textView4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:padding="10dp"
+        android:text="Select Action"
+        android:textSize="25sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
+    -<android.support.v7.widget.CardView android:layout_marginBottom="16dp" android:layout_height="wrap_content" android:layout_width="wrap_content" app:layout_constraintStart_toStartOf="parent" app:layout_constraintEnd_toEndOf="parent" android:layout_marginEnd="8dp" android:layout_marginTop="8dp" android:layout_marginStart="8dp" android:id="@+id/mapCardView" app:layout_constraintVertical_bias="0.0" app:layout_constraintTop_toBottomOf="@+id/textView4" app:layout_constraintHorizontal_bias="0.25" app:layout_constraintBottom_toBottomOf="parent" app:cardCornerRadius="10dp" app:cardBackgroundColor="#0000ff" android:paddingBottom="10dp">
+
+    <TextView android:layout_height="wrap_content" android:layout_width="wrap_content" android:textSize="20sp" android:text="Open Map" android:padding="5dp" android:textColor="#ffffff" android:layout_marginRight="8dp" android:layout_marginLeft="8dp"/>
+
+</android.support.v7.widget.CardView>
+
+
+    -<android.support.v7.widget.CardView android:layout_marginBottom="16dp" android:layout_height="wrap_content" android:layout_width="wrap_content" app:layout_constraintStart_toStartOf="parent" app:layout_constraintEnd_toEndOf="parent" android:layout_marginEnd="8dp" android:layout_marginTop="8dp" android:layout_marginStart="8dp" android:id="@+id/chatCardView" app:layout_constraintVertical_bias="0.0" app:layout_constraintTop_toBottomOf="@+id/textView4" app:layout_constraintHorizontal_bias="0.75" app:layout_constraintBottom_toBottomOf="parent" app:cardCornerRadius="10dp" app:cardBackgroundColor="#FF0033" android:paddingBottom="10dp">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:padding="5dp"
+        android:text="Chat"
+        android:textColor="#ffffff"
+        android:textSize="20sp" />
+
+</android.support.v7.widget.CardView>
+
+</android.support.constraint.ConstraintLayout>

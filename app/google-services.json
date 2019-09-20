@@ -1,0 +1,122 @@
+{
+  "project_info": {
+    "project_number": "747775487458",
+    "firebase_url": "https://dronebiet.firebaseio.com",
+    "project_id": "dronebiet",
+    "storage_bucket": "dronebiet.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:747775487458:android:3887138fb92f056a215dbb",
+        "android_client_info": {
+          "package_name": "in.shivamkrj.drone"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "747775487458-uur0lom89dmctpu0501imhvv5coa2q18.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "in.shivamkrj.drone",
+            "certificate_hash": "df6a61538ecba383827197a1e1cc8476cdf6669c"
+          }
+        },
+        {
+          "client_id": "747775487458-dkvjh7ejk8mhqi4a55mutagtfv0mjh5k.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDYMhesrxhDeGVwycrcqRo6UTfWKHAcfwo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "747775487458-dkvjh7ejk8mhqi4a55mutagtfv0mjh5k.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:747775487458:android:1c1c76dd0c032c97215dbb",
+        "android_client_info": {
+          "package_name": "in.shivamkrj.droneadmin"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "747775487458-k1n0r2d749urqfso26d308kgi3tr2nlr.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "in.shivamkrj.droneadmin",
+            "certificate_hash": "df6a61538ecba383827197a1e1cc8476cdf6669c"
+          }
+        },
+        {
+          "client_id": "747775487458-dkvjh7ejk8mhqi4a55mutagtfv0mjh5k.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDYMhesrxhDeGVwycrcqRo6UTfWKHAcfwo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "747775487458-dkvjh7ejk8mhqi4a55mutagtfv0mjh5k.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:747775487458:android:021a574a2c90e5b5215dbb",
+        "android_client_info": {
+          "package_name": "in.shivamkrj.dronebiet"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "747775487458-4hulos08rvtgced5kf27loq3q58qijuu.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "in.shivamkrj.dronebiet",
+            "certificate_hash": "df6a61538ecba383827197a1e1cc8476cdf6669c"
+          }
+        },
+        {
+          "client_id": "747775487458-dkvjh7ejk8mhqi4a55mutagtfv0mjh5k.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDYMhesrxhDeGVwycrcqRo6UTfWKHAcfwo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "747775487458-dkvjh7ejk8mhqi4a55mutagtfv0mjh5k.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
