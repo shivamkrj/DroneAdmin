@@ -1,6 +1,7 @@
 package in.shivamkrj.droneadmin;
 
 import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.support.annotation.NonNull;
@@ -19,6 +20,8 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
@@ -55,6 +58,8 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
                 UsersData usersData = dataSnapshot.getValue(UsersData.class);
+                if(usersData==null||usersData.username==null)
+                    return;
                 if(!usersData.username.equals("spclshivamkr@gmail.com"))
                     userItems.add(usersData);
                 pd.dismiss();
@@ -63,15 +68,15 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onChildChanged(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
-                UsersData usersData = dataSnapshot.getValue(UsersData.class);
-                for(int i=0;i<userItems.size();i++){
-                    if(userItems.get(i).username.equals(usersData.username)){
-                        userItems.get(i).altitude = usersData.altitude;
-                        userItems.get(i).latitude = usersData.latitude;
-                        userItems.get(i).longitude = usersData.longitude;
-                    }
-                }
-                adapter.notifyDataSetChanged();
+//                UsersData usersData = dataSnapshot.getValue(UsersData.class);
+//                for(int i=0;i<userItems.size();i++){
+//                    if(userItems.get(i).username.equals(usersData.username)){
+//                        userItems.get(i).altitude = usersData.altitude;
+//                        userItems.get(i).latitude = usersData.latitude;
+//                        userItems.get(i).longitude = usersData.longitude;
+//                    }
+//                }
+//                adapter.notifyDataSetChanged();
             }
 
             @Override
@@ -102,8 +107,44 @@ public class MainActivity extends AppCompatActivity {
             }
 
             @Override
-            public void onLongClick(View view, int position) {
+            public void onLongClick(View view, final int position) {
                 //code for delete user
+
+                AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
+
+                builder.setTitle("Delete");
+                builder.setCancelable(true);
+                builder.setMessage("Are you sure to Delete ");
+                builder.setPositiveButton("Delete", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        Query deleteDB = userReference.orderByChild("username").equalTo(userItems.get(position).username);
+                        deleteDB.addListenerForSingleValueEvent(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(DataSnapshot dataSnapshot) {
+                                for(DataSnapshot d:dataSnapshot.getChildren()){
+                                    d.getRef().removeValue();
+                                }
+                                userItems.remove(position);
+                                adapter.notifyDataSetChanged();
+                            }
+
+                            @Override
+                            public void onCancelled(DatabaseError databaseError) {
+
+                            }
+                        });
+                    }
+                });
+
+                builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                    }
+                });
+                AlertDialog dialog = builder.create();
+                dialog.show();
+
             }
         };
         adapter = new UsersAdapter(this,userItems,viewClickInterface);
@@ -135,7 +176,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(MainActivity.this,ChatActivity.class);
-                intent.putExtra("USER",userItems.get(position).username);
+                intent.putExtra("USERNAME",userItems.get(position).username);
                 startActivity(intent);
                 dialog.dismiss();
             }

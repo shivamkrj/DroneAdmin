@@ -45,7 +45,7 @@ public class UsersAdapter extends RecyclerView.Adapter<UsersViewHolder> {
             @Override
             public boolean onLongClick(View v) {
                 viewClickInterface.onLongClick(v,usersViewHolder.getAdapterPosition());
-                return false;
+                return true;
             }
         });
     }
