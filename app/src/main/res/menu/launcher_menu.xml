@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item
-        android:icon="@drawable/send"
+        android:icon="@drawable/notification_icon"
         android:title="notification"
         android:id="@+id/notification"
         app:showAsAction="always"
