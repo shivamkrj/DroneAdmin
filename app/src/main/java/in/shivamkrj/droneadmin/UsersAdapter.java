@@ -31,11 +31,13 @@ public class UsersAdapter extends RecyclerView.Adapter<UsersViewHolder> {
     @Override
     public void onBindViewHolder(@NonNull final UsersViewHolder usersViewHolder, int i) {
         UsersData usersData = usersList.get(usersViewHolder.getAdapterPosition());
-        usersViewHolder.altitudeTextView.setText(usersData.altitude);
+        usersViewHolder.addressTextView.setText(usersData.address);
         usersViewHolder.latitudeTextView.setText(usersData.latitude);
         usersViewHolder.longitudeTextView.setText(usersData.longitude);
         usersViewHolder.usernameTextView.setText(usersData.username);
         usersViewHolder.timeTextView.setText(usersData.time);
+        usersViewHolder.nameTextView.setText(usersData.name);
+        usersViewHolder.itemsTextView.setText(usersData.items);
         usersViewHolder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

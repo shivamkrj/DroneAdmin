@@ -12,7 +12,9 @@ public class UsersViewHolder extends RecyclerView.ViewHolder {
     TextView usernameTextView;
     TextView latitudeTextView;
     TextView longitudeTextView;
-    TextView altitudeTextView;
+    TextView addressTextView;
+    TextView nameTextView;
+    TextView itemsTextView;
     TextView timeTextView;
 
     public UsersViewHolder(@NonNull View itemView) {
@@ -20,8 +22,11 @@ public class UsersViewHolder extends RecyclerView.ViewHolder {
         item = itemView;
         latitudeTextView = item.findViewById(R.id.latitude);
         longitudeTextView = item.findViewById(R.id.Longitude);
-        altitudeTextView = item.findViewById(R.id.Altitude);
+        addressTextView = item.findViewById(R.id.Altitude);
         usernameTextView = item.findViewById(R.id.user_name);
         timeTextView = item.findViewById(R.id.time);
+        nameTextView = item.findViewById(R.id.name);
+        itemsTextView = item.findViewById(R.id.items);
+
     }
 }

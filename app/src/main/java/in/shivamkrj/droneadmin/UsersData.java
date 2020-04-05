@@ -4,6 +4,8 @@ public class UsersData {
     public String username;
     public String latitude;
     public String longitude;
-    public String altitude;
+    public String items;
     public String time;
+    public String name;
+    public String address;
 }
