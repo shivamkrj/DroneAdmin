@@ -72,7 +72,7 @@ public class MainActivity extends AppCompatActivity {
                 UsersData usersData = dataSnapshot.getValue(UsersData.class);
                 for(int i=0;i<userItems.size();i++){
                     if(userItems.get(i).username.equals(usersData.username)){
-                        userItems.get(i).altitude = usersData.altitude;
+                        userItems.get(i).address = usersData.address;
                         userItems.get(i).latitude = usersData.latitude;
                         userItems.get(i).longitude = usersData.longitude;
                         userItems.get(i).time = usersData.time;
