@@ -6,13 +6,20 @@ import android.content.Intent;
 import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
@@ -34,6 +41,10 @@ public class ListNgo extends AppCompatActivity {
     DatabaseReference ngoListReference;
     ProgressDialog pd;
     FirebaseDatabase database;
+    FloatingActionButton addNgoButton;
+    AlertDialog dialog;
+    EditText ngoName,userName,phoneNumber,detail;
+    ImageView callButton;
 
 
     @Override
@@ -46,14 +57,64 @@ public class ListNgo extends AppCompatActivity {
         database = FirebaseDatabase.getInstance();
         ngoListReference = database.getReference("NGOLISTS");
 
-        for(int i=0;i<15;i++){
-            ngoDataArrayList.add(new NgoData(i+"",i+"","9012384858","cdcd"));
-//            ngoListReference.push().setValue(ngoDataArrayList.get(i));
 
-        }
+        addNgoButton = findViewById(R.id.add_ngo);
+        addNgoButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                registerNgo();
+            }
+        });
         fetchData();
         setRecyclerView();
 
+    }
+
+    private void registerNgo() {
+        final AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        final View dialogView = getLayoutInflater().inflate(R.layout.register_ngo_view,null);
+        builder.setView(dialogView);
+        builder.setCancelable(false);
+
+
+        Button cancelButton,submitButton;
+
+        ngoName = dialogView.findViewById(R.id.ngo_name);
+        userName = dialogView.findViewById(R.id.user_name);
+        phoneNumber = dialogView.findViewById(R.id.phone_number);
+        detail = dialogView.findViewById(R.id.detail_ngo);
+        callButton  = dialogView.findViewById(R.id.call_ngo);
+        cancelButton = dialogView.findViewById(R.id.cancel_action);
+        submitButton = dialogView.findViewById(R.id.submit_action);
+        cancelButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+
+            }
+        });
+        submitButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String ngoNamef=ngoName.getText().toString();
+                String userNamef=userName.getText().toString();
+                String phoneNUmberf=phoneNumber.getText().toString();
+                String  detailf=detail.getText().toString();
+                if(ngoNamef==null||ngoNamef.length()==0||userNamef==null||userNamef.length()==0||
+                phoneNUmberf==null||phoneNUmberf.length()==0||detailf==null||detailf.length()<10){
+                    Toast.makeText(ListNgo.this,"All field are to be filled",Toast.LENGTH_LONG).show();
+                    return;
+                }
+                NgoData ngoData = new NgoData(ngoNamef,userNamef,"+91"+phoneNUmberf.substring(phoneNUmberf.length()-10),detailf);
+                ngoListReference.push().setValue(ngoData);
+                Toast.makeText(ListNgo.this,"Ngo Added",Toast.LENGTH_LONG).show();
+                ngoDataArrayList.add(0,ngoData);
+                adapter.notifyDataSetChanged();
+                dialog.dismiss();
+            }
+        });
+        dialog = builder.create();
+        dialog.show();
     }
 
     private void fetchData() {
@@ -74,6 +135,7 @@ public class ListNgo extends AppCompatActivity {
 
                     Log.i("fetch",ngoDataArrayList.size()+"");
                     adapter.notifyDataSetChanged();
+                    pd.dismiss();
                 }
             }
 
@@ -83,7 +145,7 @@ public class ListNgo extends AppCompatActivity {
             }
         });
         Log.i("fetch",ngoDataArrayList.size()+"");
-        pd.dismiss();
+
     }
 
     private void setRecyclerView() {
