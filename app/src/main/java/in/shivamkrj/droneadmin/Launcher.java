@@ -1,8 +1,11 @@
 package in.shivamkrj.droneadmin;
 
 import android.content.Intent;
+import android.net.Uri;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.CardView;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -13,6 +16,8 @@ import android.widget.Toast;
 public class Launcher extends AppCompatActivity {
 
     TextView sewaTv,sewaTV1,needTv,donateTv,beneficaryTv,ngoTv,itemTv;
+
+    AlertDialog dialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,7 +31,8 @@ public class Launcher extends AppCompatActivity {
         sewaTv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                //donate/need
+                selectActionForDonate();
             }
         });
         sewaTV1 = findViewById(R.id.tv_sewa1);
@@ -75,6 +81,46 @@ public class Launcher extends AppCompatActivity {
             }
         });
 
+    }
+
+    private void selectActionForDonate() {
+        final AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        View dialogView = getLayoutInflater().inflate(R.layout.dialog_three_options,null);
+        builder.setView(dialogView);
+        builder.setCancelable(true);
+        CardView need = dialogView.findViewById(R.id.mapCardView);
+        CardView donateR = dialogView.findViewById(R.id.chatCardView);
+        CardView donateO = dialogView.findViewById(R.id.cashCardView);
+        need.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //
+                dialog.dismiss();
+                Intent intent = new Intent(Launcher.this,MainActivity.class);
+                intent.putExtra("isNeed",true);
+                startActivity(intent);
+            }
+        });
+        donateR.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //
+                dialog.dismiss();
+                Intent intent = new Intent(Launcher.this,MainActivity.class);
+                intent.putExtra("isNeed",false);
+                startActivity(intent);
+            }
+        });
+        donateO.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //
+                dialog.dismiss();
+                //webview link for donation using uri
+            }
+        });
+        dialog = builder.create();
+        dialog.show();
     }
 
     @Override

@@ -8,4 +8,5 @@ public class UsersData {
     public String time;
     public String name;
     public String address;
+    public boolean isDonating;
 }
