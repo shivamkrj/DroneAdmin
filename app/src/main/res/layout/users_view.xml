@@ -5,7 +5,7 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_marginBottom="5sp"
-    android:layout_height="125sp">
+    android:layout_height="wrap_content">
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_marginStart="2sp"
@@ -83,6 +83,24 @@
                     android:text="Altitude :"/>
                 <TextView
                     android:id="@+id/Altitude"
+                    android:padding="5sp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:text="32151"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:padding="5sp"
+                    android:textStyle="bold"
+                    android:layout_height="match_parent"
+                    android:text="Last Updated :"/>
+                <TextView
+                    android:id="@+id/time"
                     android:padding="5sp"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"

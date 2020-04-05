@@ -13,6 +13,7 @@ public class UsersViewHolder extends RecyclerView.ViewHolder {
     TextView latitudeTextView;
     TextView longitudeTextView;
     TextView altitudeTextView;
+    TextView timeTextView;
 
     public UsersViewHolder(@NonNull View itemView) {
         super(itemView);
@@ -21,5 +22,6 @@ public class UsersViewHolder extends RecyclerView.ViewHolder {
         longitudeTextView = item.findViewById(R.id.Longitude);
         altitudeTextView = item.findViewById(R.id.Altitude);
         usernameTextView = item.findViewById(R.id.user_name);
+        timeTextView = item.findViewById(R.id.time);
     }
 }

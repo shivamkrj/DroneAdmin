@@ -5,4 +5,5 @@ public class UsersData {
     public String latitude;
     public String longitude;
     public String altitude;
+    public String time;
 }

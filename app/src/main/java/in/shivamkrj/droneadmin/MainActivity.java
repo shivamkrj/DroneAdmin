@@ -14,7 +14,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
-import com.google.firebase.FirebaseApp;
+//import com.google.firebase.FirebaseApp;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -33,14 +33,15 @@ public class MainActivity extends AppCompatActivity {
     DatabaseReference userReference;
     ProgressDialog pd;
     AlertDialog dialog;
+    FirebaseDatabase database;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        FirebaseApp.initializeApp(this);
-        FirebaseDatabase database = FirebaseDatabase.getInstance();
+//        FirebaseApp.initializeApp(this);
+        database = FirebaseDatabase.getInstance();
         userReference = database.getReference("USERS");
         userItems = new ArrayList<>();
         fetchUsers();
@@ -68,15 +69,16 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onChildChanged(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
-//                UsersData usersData = dataSnapshot.getValue(UsersData.class);
-//                for(int i=0;i<userItems.size();i++){
-//                    if(userItems.get(i).username.equals(usersData.username)){
-//                        userItems.get(i).altitude = usersData.altitude;
-//                        userItems.get(i).latitude = usersData.latitude;
-//                        userItems.get(i).longitude = usersData.longitude;
-//                    }
-//                }
-//                adapter.notifyDataSetChanged();
+                UsersData usersData = dataSnapshot.getValue(UsersData.class);
+                for(int i=0;i<userItems.size();i++){
+                    if(userItems.get(i).username.equals(usersData.username)){
+                        userItems.get(i).altitude = usersData.altitude;
+                        userItems.get(i).latitude = usersData.latitude;
+                        userItems.get(i).longitude = usersData.longitude;
+                        userItems.get(i).time = usersData.time;
+                    }
+                }
+                adapter.notifyDataSetChanged();
             }
 
             @Override
@@ -118,6 +120,8 @@ public class MainActivity extends AppCompatActivity {
                 builder.setPositiveButton("Delete", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
+                        DatabaseReference ref  = database.getReference(userItems.get(position).username);
+                        ref.removeValue();
                         Query deleteDB = userReference.orderByChild("username").equalTo(userItems.get(position).username);
                         deleteDB.addListenerForSingleValueEvent(new ValueEventListener() {
                             @Override

@@ -35,6 +35,7 @@ public class UsersAdapter extends RecyclerView.Adapter<UsersViewHolder> {
         usersViewHolder.latitudeTextView.setText(usersData.latitude);
         usersViewHolder.longitudeTextView.setText(usersData.longitude);
         usersViewHolder.usernameTextView.setText(usersData.username);
+        usersViewHolder.timeTextView.setText(usersData.time);
         usersViewHolder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
