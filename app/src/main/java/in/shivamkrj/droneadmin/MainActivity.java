@@ -29,6 +29,8 @@ public class MainActivity extends AppCompatActivity {
 
     ArrayList<UsersData> userItems;
     RecyclerView recyclerView;
+
+    boolean isDonating = false;
     UsersAdapter adapter;
     DatabaseReference userReference;
     ProgressDialog pd;
@@ -176,6 +178,7 @@ public class MainActivity extends AppCompatActivity {
                 dialog.dismiss();
             }
         });
+        hindiCardView.setVisibility(View.GONE);
         hindiCardView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
