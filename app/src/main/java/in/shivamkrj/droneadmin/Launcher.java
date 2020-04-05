@@ -2,20 +2,31 @@ package in.shivamkrj.droneadmin;
 
 import android.content.Intent;
 import android.net.Uri;
+import android.support.annotation.NonNull;
+import android.support.v4.app.NotificationCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.CardView;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
+import com.google.firebase.messaging.RemoteMessage;
+
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.iid.FirebaseInstanceId;
+import com.google.firebase.iid.InstanceIdResult;
+import com.google.firebase.messaging.FirebaseMessaging;
 
 public class Launcher extends AppCompatActivity {
 
     TextView sewaTv,sewaTV1,needTv,donateTv,beneficaryTv,ngoTv,itemTv;
+    String token;
 
     AlertDialog dialog;
 
@@ -24,6 +35,36 @@ public class Launcher extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_launcher);
         findViews();
+        FirebaseInstanceId.getInstance().getInstanceId()
+                .addOnCompleteListener(new OnCompleteListener<InstanceIdResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<InstanceIdResult> task) {
+                        if (!task.isSuccessful()) {
+                            Log.w("fcms", "getInstanceId failed", task.getException());
+                            return;
+                        }
+                        // Get new Instance ID token
+                        token = task.getResult().getToken();
+
+                        // Log and toast
+                        String msg = getString(R.string.msg_token_fmt, token);
+                        Log.d("zzzfcms", msg);
+//                        Toast.makeText(MainActivity.this, msg, Toast.LENGTH_SHORT).show();
+                    }
+                });
+
+        FirebaseMessaging.getInstance().subscribeToTopic("all-users")
+                .addOnCompleteListener(new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                        String msg = getString(R.string.msg_subscribed);
+                        if (!task.isSuccessful()) {
+                            msg = getString(R.string.msg_subscribe_failed);
+                        }
+                        Log.d("zzzubscribeToTopic", msg);
+//                        Toast.makeText(MainActivity.this, msg, Toast.LENGTH_SHORT).show();
+                    }
+                });
     }
 
     private void findViews() {
@@ -32,7 +73,8 @@ public class Launcher extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 //donate/need
-                selectActionForDonate();
+//                selectActionForDonate();
+                Toast.makeText(Launcher.this,"Not for Admin App",Toast.LENGTH_LONG).show();
             }
         });
         sewaTV1 = findViewById(R.id.tv_sewa1);
@@ -46,14 +88,18 @@ public class Launcher extends AppCompatActivity {
         needTv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                Intent intent = new Intent(Launcher.this,MainActivity.class);
+                intent.putExtra("isNeed",true);
+                startActivity(intent);
             }
         });
         donateTv = findViewById(R.id.tv_doner);
         donateTv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                Intent intent = new Intent(Launcher.this,MainActivity.class);
+                intent.putExtra("isNeed",false);
+                startActivity(intent);
             }
         });
         beneficaryTv = findViewById(R.id.beneficiary);
@@ -143,6 +189,21 @@ public class Launcher extends AppCompatActivity {
     }
 
     private void notification() {
-        Toast.makeText(this,"notification  clicked",Toast.LENGTH_LONG).show();
+//        Toast.makeText(this,"notification  clicked",Toast.LENGTH_LONG).show();
+//        String topic = "highScores";
+//        RemoteMessage message = new RemoteMessage.Builder()
+//        NotificationCompat.MessagingStyle.Message.class.
+//        Message message = Message.builder()
+//                .putData("score", "850")
+//                .putData("time", "2:45")
+//                .setTopic(topic)
+//                .build();
+//
+//// Send a message to the devices subscribed to the provided topic.
+//        String response = FirebaseMessaging.getInstance().send(message);
+// Response is a message ID string.
+//        System.out.println("Successfully sent message: " + response);
+
+
     }
 }

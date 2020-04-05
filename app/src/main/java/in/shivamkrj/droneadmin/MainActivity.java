@@ -63,8 +63,10 @@ public class MainActivity extends AppCompatActivity {
                 UsersData usersData = dataSnapshot.getValue(UsersData.class);
                 if(usersData==null||usersData.username==null)
                     return;
-                if(!usersData.username.equals("spclshivamkr@gmail.com"))
-                    userItems.add(usersData);
+                if(!usersData.username.equals("spclshivamkr@gmail.com")){
+                    if(usersData.isDonating==isDonating)
+                        userItems.add(usersData);
+                }
                 pd.dismiss();
                 adapter.notifyDataSetChanged();
             }
