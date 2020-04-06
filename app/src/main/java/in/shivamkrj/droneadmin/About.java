@@ -25,7 +25,7 @@ public class About extends AppCompatActivity {
         WebSettings webSettings = webView.getSettings();
         webSettings.setJavaScriptEnabled(true);
         final ProgressDialog pd=new ProgressDialog(this);
-        pd.setMessage("Loadind");
+        pd.setMessage("Loading");
         pd.setCancelable(false);
         pd.show();
         webView.setWebViewClient(new WebViewClient(){

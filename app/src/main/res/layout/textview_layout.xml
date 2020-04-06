@@ -12,6 +12,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:elevation="2dp"
+        app:cardBackgroundColor="#76c04e"
         android:layout_margin="2dp"
         app:cardCornerRadius="2dp">
         <TextView
@@ -19,8 +20,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:padding="5dp"
-            android:text="list"
-            android:textAppearance="@style/TextAppearance.AppCompat.Large" />
+            android:textAppearance="@style/TextAppearance.AppCompat.Large"
+            android:text="list" />
 
     </android.support.v7.widget.CardView>
 

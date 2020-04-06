@@ -48,7 +48,7 @@ public class MainActivity extends AppCompatActivity {
         userItems = new ArrayList<>();
         fetchUsers();
         setRecyclerView();
-
+        isDonating = !getIntent().getBooleanExtra("isNeed",false);
     }
 
     private void fetchUsers() {

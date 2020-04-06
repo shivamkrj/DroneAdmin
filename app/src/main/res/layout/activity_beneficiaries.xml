@@ -20,13 +20,13 @@
         </android.support.v7.widget.RecyclerView>
 
         <android.support.design.widget.FloatingActionButton
-            android:layout_gravity="bottom |right"
-            android:layout_width="wrap_content"
-            android:layout_margin="10dp"
-            android:backgroundTint="#D0D9EE"
-            android:src="@drawable/plus"
             android:id="@+id/add"
-            android:layout_height="wrap_content"/>
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|end"
+            android:layout_margin="16dp"
+            app:srcCompat="@drawable/fab"
+            />
     </FrameLayout>
 
 </LinearLayout>
