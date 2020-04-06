@@ -15,7 +15,7 @@ import android.widget.Toast;
 
 public class Launcher extends AppCompatActivity {
 
-    TextView sewaTv,sewaTV1,needTv,donateTv,beneficaryTv,ngoTv,itemTv;
+    TextView sewaTv,sewaTV1,needTv,donateTv,beneficaryTv,ngoTv,itemTv,about;
 
     AlertDialog dialog;
 
@@ -27,6 +27,13 @@ public class Launcher extends AppCompatActivity {
     }
 
     private void findViews() {
+        about = findViewById(R.id.about);
+        about.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(Launcher.this,About.class));
+            }
+        });
         sewaTv = findViewById(R.id.tv_sewa);
         sewaTv.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -60,7 +67,10 @@ public class Launcher extends AppCompatActivity {
         beneficaryTv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                Intent i =new Intent(Launcher.this,Beneficiaries.class);
+                i.putExtra("title","Beneficiaries");
+                i.putExtra("node","Beneficiaries");
+                startActivity(i);
 
             }
         });
@@ -70,6 +80,7 @@ public class Launcher extends AppCompatActivity {
             public void onClick(View v) {
 
                 startActivity(new Intent(Launcher.this,ListNgo.class));
+//                finish();
 
             }
         });
@@ -77,7 +88,11 @@ public class Launcher extends AppCompatActivity {
         itemTv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                Intent i =new Intent(Launcher.this,Beneficiaries.class);
+                i.putExtra("title","List of Item Donate");
+                i.putExtra("node","DonateItem");
+                startActivity(i);
+//                finish();
             }
         });
 
