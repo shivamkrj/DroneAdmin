@@ -52,6 +52,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "747775487458-211qlqilibf7jk7mokq50u53g93cb4os.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "in.shivamkrj.droneadmin",
+            "certificate_hash": "7c0a1a106374d3c481f8cfa2040952642c445848"
+          }
+        },
+        {
           "client_id": "747775487458-k1n0r2d749urqfso26d308kgi3tr2nlr.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
