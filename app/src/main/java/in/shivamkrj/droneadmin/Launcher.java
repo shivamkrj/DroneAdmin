@@ -191,7 +191,12 @@ public class Launcher extends AppCompatActivity {
     private void notification() {
 //        Toast.makeText(this,"notification  clicked",Toast.LENGTH_LONG).show();
 //        String topic = "highScores";
-//        RemoteMessage message = new RemoteMessage.Builder()
+        RemoteMessage.Builder message = new RemoteMessage.Builder("/topic/all-users");
+        message.addData("body","shivam");
+        message.addData("title","kumar");
+        RemoteMessage remoteMessage = message.build();
+        remoteMessage.getCollapseKey();
+
 //        NotificationCompat.MessagingStyle.Message.class.
 //        Message message = Message.builder()
 //                .putData("score", "850")
@@ -199,9 +204,9 @@ public class Launcher extends AppCompatActivity {
 //                .setTopic(topic)
 //                .build();
 //
-//// Send a message to the devices subscribed to the provided topic.
-//        String response = FirebaseMessaging.getInstance().send(message);
-// Response is a message ID string.
+// Send a message to the devices subscribed to the provided topic.
+
+//        String response = FirebaseMessaging.getInstance().send(remoteMessage);
 //        System.out.println("Successfully sent message: " + response);
 
 
