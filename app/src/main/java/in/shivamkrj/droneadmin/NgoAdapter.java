@@ -43,6 +43,13 @@ public class NgoAdapter extends RecyclerView.Adapter<NgoViewHolder> {
                 viewClickInterface.onViewClick(ngoViewHolder.item,ngoViewHolder.getAdapterPosition());
             }
         });
+        ngoViewHolder.item.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+                viewClickInterface.onLongClick(v,ngoViewHolder.getAdapterPosition());
+                return true;
+            }
+        });
 
     }
 
