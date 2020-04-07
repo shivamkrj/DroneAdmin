@@ -137,6 +137,7 @@ public class Launcher extends AppCompatActivity {
                 i.putExtra("title","Beneficiaries");
                 i.putExtra("node","Beneficiaries");
                 startActivity(i);
+//                finish();
             }
         });
         ngoTv = findViewById(R.id.tv_ngo);
@@ -152,7 +153,7 @@ public class Launcher extends AppCompatActivity {
         itemTv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i =new Intent(Launcher.this,Beneficiaries.class);
+                Intent i =new Intent(Launcher.this,ItemActivity.class);
                 i.putExtra("title","List of Item Donate");
                 i.putExtra("node","DonateItem");
                 startActivity(i);
