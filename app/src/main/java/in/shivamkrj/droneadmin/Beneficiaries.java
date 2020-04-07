@@ -45,6 +45,8 @@ public class Beneficiaries extends AppCompatActivity {
     ItemDonateAdapter adapter;
     ViewClickInterface viewClickInterface;
     String title;
+    boolean isNotification = false;
+    String node;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,9 +57,14 @@ public class Beneficiaries extends AppCompatActivity {
         setRecyclerview();
         database = FirebaseDatabase.getInstance();
         Intent i = getIntent();
-        String node = i.getStringExtra("node");
+        node = i.getStringExtra("node");
         title  = i.getStringExtra("title");
+        if(node.equalsIgnoreCase("ADMIN-NOTIFICATION"))
+            isNotification = true;
+        if(isNotification)
+            Toast.makeText(this,"id notification",Toast.LENGTH_LONG).show();
         setTitle(title);
+
         reference = database.getReference(node);
         fetchData();
     }
@@ -132,6 +139,16 @@ public class Beneficiaries extends AppCompatActivity {
                 if(0 == dataSnapshot.getChildrenCount())pd.dismiss();
                 for (DataSnapshot postSnapshot: dataSnapshotIterable) {
                     arrayList.add(postSnapshot.getValue(itemData.class));
+                    if(isNotification){
+                        for(int i=0;i<arrayList.size();i++){
+                            String s = arrayList.get(i).data;
+                            String title[] = s.split("@");
+                            String a = title[0];
+                            String b = title[1];
+                            s = "<strong>"+" User: "+"</strong>"+a+"\n"+"<strong>"+" Message: "+"</strong>"+b;
+                            arrayList.get(i).data = s;
+                        }
+                    }
                     adapter.notifyDataSetChanged();
                     pd.dismiss();
                 }
@@ -163,10 +180,15 @@ public class Beneficiaries extends AppCompatActivity {
     }
 
     private void addBeneficiaries() {
+        if(isNotification)
+            reference = database.getReference("USER-NOTIFICATION");
         final EditText input = new EditText(Beneficiaries.this);
         final AlertDialog.Builder builder = new AlertDialog.Builder(this);
         final View dialogView = input;
-        builder.setTitle("Add "+title);
+        if(isNotification)
+            builder.setTitle("Add "+title+" for all users");
+        else
+            builder.setTitle("Add "+title);
         builder.setView(dialogView);
         builder.setCancelable(false);
 
@@ -181,10 +203,13 @@ public class Beneficiaries extends AppCompatActivity {
                 }
                 String key = reference.push().getKey();
                 String data  = input.getText().toString();
+                Constant.sendGroupPush(Beneficiaries.this," ",data);
                 final itemData itemData = new itemData(key,data);
                 reference.child(key).setValue(itemData).addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {
+                        if(isNotification)
+                            return;
                         arrayList.add(itemData);
                         adapter.notifyDataSetChanged();
                     }

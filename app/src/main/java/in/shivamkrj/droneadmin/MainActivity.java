@@ -152,7 +152,6 @@ public class MainActivity extends AppCompatActivity {
                 });
                 AlertDialog dialog = builder.create();
                 dialog.show();
-
             }
         };
         adapter = new UsersAdapter(this,userItems,viewClickInterface);

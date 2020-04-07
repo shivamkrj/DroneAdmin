@@ -1,9 +1,8 @@
 package in.shivamkrj.droneadmin;
 
+import android.app.DownloadManager;
 import android.content.Intent;
-import android.net.Uri;
 import android.support.annotation.NonNull;
-import android.support.v4.app.NotificationCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -15,13 +14,32 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
-import com.google.firebase.messaging.RemoteMessage;
 
+
+//import com.google.android.gms.common.api.Response;
+//import com.google.firebase.database.core.Constants;
+import com.android.volley.AuthFailureError;
+import com.android.volley.DefaultRetryPolicy;
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.RetryPolicy;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.Volley;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.FirebaseApp;
 import com.google.firebase.iid.FirebaseInstanceId;
 import com.google.firebase.iid.InstanceIdResult;
 import com.google.firebase.messaging.FirebaseMessaging;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class Launcher extends AppCompatActivity {
 
@@ -29,12 +47,14 @@ public class Launcher extends AppCompatActivity {
     String token;
 
     AlertDialog dialog;
+    String FCM_API_KEY;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_launcher);
         findViews();
+        FirebaseApp.initializeApp(getApplicationContext());
         FirebaseInstanceId.getInstance().getInstanceId()
                 .addOnCompleteListener(new OnCompleteListener<InstanceIdResult>() {
                     @Override
@@ -53,7 +73,7 @@ public class Launcher extends AppCompatActivity {
                     }
                 });
 
-        FirebaseMessaging.getInstance().subscribeToTopic("all-users")
+        FirebaseMessaging.getInstance().subscribeToTopic("admin")
                 .addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {
@@ -199,27 +219,11 @@ public class Launcher extends AppCompatActivity {
         }
     }
 
-    private void notification() {
-//        Toast.makeText(this,"notification  clicked",Toast.LENGTH_LONG).show();
-//        String topic = "highScores";
-        RemoteMessage.Builder message = new RemoteMessage.Builder("/topic/all-users");
-        message.addData("body","shivam");
-        message.addData("title","kumar");
-        RemoteMessage remoteMessage = message.build();
-        remoteMessage.getCollapseKey();
-
-//        NotificationCompat.MessagingStyle.Message.class.
-//        Message message = Message.builder()
-//                .putData("score", "850")
-//                .putData("time", "2:45")
-//                .setTopic(topic)
-//                .build();
-//
-// Send a message to the devices subscribed to the provided topic.
-
-//        String response = FirebaseMessaging.getInstance().send(remoteMessage);
-//        System.out.println("Successfully sent message: " + response);
-
+    private void notification(){
+        Intent i =new Intent(Launcher.this,Beneficiaries.class);
+        i.putExtra("title","Notifications");
+        i.putExtra("node","ADMIN-NOTIFICATION");
+        startActivity(i);
 
     }
 }

@@ -2,6 +2,8 @@ package in.shivamkrj.droneadmin;
 
 import android.util.Log;
 
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
 
@@ -40,6 +42,16 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
         // Check if message contains a notification payload.
         if (remoteMessage.getNotification() != null) {
             Log.d("zzzGetNotification", "Message Notification Body: " + remoteMessage.getNotification().getBody());
+            String title = remoteMessage.getNotification().getTitle();
+            String body = remoteMessage.getNotification().getBody();
+
+            FirebaseDatabase database = FirebaseDatabase.getInstance();
+            DatabaseReference notificationReference = database.getReference("ADMIN-NOTIFICATION");
+            itemData item = new itemData();
+            item.data = title+" @ "+body;
+            item.key = notificationReference.push().getKey();
+            notificationReference.child(item.key).setValue(item);
+            System.out.println("notificatin is added");
         }
     }
 }
