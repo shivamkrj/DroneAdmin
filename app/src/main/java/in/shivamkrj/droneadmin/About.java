@@ -32,7 +32,7 @@ public class About extends AppCompatActivity {
             @Override
             public void onPageStarted(WebView view, String url, Bitmap favicon) {
                 super.onPageStarted(view, url, favicon);
-                pd.dismiss();
+//                pd.dismiss();
 
             }
 
@@ -43,7 +43,7 @@ public class About extends AppCompatActivity {
             }
         });
 
-        webView.loadUrl("http://sewa.org.in/about.php");
+        webView.loadUrl("http://sewa.org.in");
 
     }
 }
