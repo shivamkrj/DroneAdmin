@@ -37,6 +37,7 @@ public class ItemActivity extends AppCompatActivity {
     ItemDonateAdapter adapter;
     ViewClickInterface viewClickInterface;
     String title;
+    private boolean isNotification;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,6 +51,8 @@ public class ItemActivity extends AppCompatActivity {
         Intent i = getIntent();
         String node = i.getStringExtra("node");
         title  = i.getStringExtra("title");
+        if(node.equalsIgnoreCase("ADMIN-NOTIFICATION"))
+            isNotification = true;
         setTitle(title);
         reference = database.getReference(node);
         fetchData();
@@ -125,6 +128,16 @@ public class ItemActivity extends AppCompatActivity {
                 if(0 == dataSnapshot.getChildrenCount())pd.dismiss();
                 for (DataSnapshot postSnapshot: dataSnapshotIterable) {
                     arrayList.add(postSnapshot.getValue(itemData.class));
+                    if(isNotification){
+                        for(int i=0;i<arrayList.size();i++){
+                            String s = arrayList.get(i).data;
+                            String title[] = s.split("@");
+                            String a = title[0];
+                            String b = title[1];
+                            s = "<strong>"+" User: "+"</strong>"+a+"\n"+"<strong>"+" Message: "+"</strong>"+b;
+                            arrayList.get(i).data = s;
+                        }
+                    }
                     adapter.notifyDataSetChanged();
                     pd.dismiss();
                 }
@@ -176,6 +189,12 @@ public class ItemActivity extends AppCompatActivity {
                 String key = reference.push().getKey();
                 String data  = input.getText().toString();
                 final itemData itemData = new itemData(key,data);
+                if(isNotification){
+                    reference = database.getReference("USER-NOTIFICATION");
+                    Constant.sendGroupPush(ItemActivity.this,"Dear Users",data);
+                    Toast.makeText(ItemActivity.this,"Successfully sent Notification",Toast.LENGTH_LONG).show();
+                    onBackPressed();
+                }
                 reference.child(key).setValue(itemData).addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {
@@ -183,8 +202,6 @@ public class ItemActivity extends AppCompatActivity {
                         adapter.notifyDataSetChanged();
                     }
                 });
-
-
             }
         });
         builder.setNegativeButton("cancel", new DialogInterface.OnClickListener() {
@@ -193,8 +210,6 @@ public class ItemActivity extends AppCompatActivity {
                 pd.dismiss();
             }
         });
-
-
         dialog = builder.create();
         dialog.show();
     }

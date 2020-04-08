@@ -221,7 +221,7 @@ public class Launcher extends AppCompatActivity {
     }
 
     private void notification(){
-        Intent i =new Intent(Launcher.this,Beneficiaries.class);
+        Intent i =new Intent(Launcher.this,ItemActivity.class);
         i.putExtra("title","Notifications");
         i.putExtra("node","ADMIN-NOTIFICATION");
         startActivity(i);
