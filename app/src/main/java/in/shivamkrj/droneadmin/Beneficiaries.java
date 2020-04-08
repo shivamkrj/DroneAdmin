@@ -192,7 +192,7 @@ public class Beneficiaries extends AppCompatActivity {
         builder.setView(dialogView);
         builder.setCancelable(false);
 
-        builder.setPositiveButton("submit", new DialogInterface.OnClickListener() {
+        builder.setPositiveButton("Submit", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 if(input==null||input.getText().length()==0){
@@ -203,7 +203,7 @@ public class Beneficiaries extends AppCompatActivity {
                 }
                 String key = reference.push().getKey();
                 String data  = input.getText().toString();
-                Constant.sendGroupPush(Beneficiaries.this," ",data);
+                Constant.sendGroupPush(Beneficiaries.this,"Dear Users",data);
                 final itemData itemData = new itemData(key,data);
                 reference.child(key).setValue(itemData).addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override
@@ -218,7 +218,7 @@ public class Beneficiaries extends AppCompatActivity {
 
             }
         });
-        builder.setNegativeButton("cancel", new DialogInterface.OnClickListener() {
+        builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 pd.dismiss();
