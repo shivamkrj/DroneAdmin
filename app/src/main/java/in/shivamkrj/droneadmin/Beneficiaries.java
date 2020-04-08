@@ -15,6 +15,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
@@ -41,8 +42,8 @@ public class Beneficiaries extends AppCompatActivity {
     FirebaseDatabase database;
     DatabaseReference reference;
     ProgressDialog pd;
-    ArrayList<itemData> arrayList;
-    ItemDonateAdapter adapter;
+    ArrayList<BeneficiariesData> arrayList;
+    BeneficiariesAdapter adapter;
     ViewClickInterface viewClickInterface;
     String title;
     boolean isNotification = false;
@@ -84,7 +85,7 @@ public class Beneficiaries extends AppCompatActivity {
 
         };
 
-        adapter = new ItemDonateAdapter(this,arrayList,viewClickInterface);
+        adapter = new BeneficiariesAdapter(this,arrayList,viewClickInterface);
         recyclerView.setLayoutManager(new LinearLayoutManager(this,LinearLayoutManager.VERTICAL,false));
         recyclerView.setAdapter(adapter);
         adapter.notifyDataSetChanged();
@@ -138,17 +139,8 @@ public class Beneficiaries extends AppCompatActivity {
                 Log.i("fetch",dataSnapshot.getChildren().toString()+" "+dataSnapshot.getChildrenCount());
                 if(0 == dataSnapshot.getChildrenCount())pd.dismiss();
                 for (DataSnapshot postSnapshot: dataSnapshotIterable) {
-                    arrayList.add(postSnapshot.getValue(itemData.class));
-                    if(isNotification){
-                        for(int i=0;i<arrayList.size();i++){
-                            String s = arrayList.get(i).data;
-                            String title[] = s.split("@");
-                            String a = title[0];
-                            String b = title[1];
-                            s = "<strong>"+" User: "+"</strong>"+a+"\n"+"<strong>"+" Message: "+"</strong>"+b;
-                            arrayList.get(i).data = s;
-                        }
-                    }
+                    arrayList.add(postSnapshot.getValue(BeneficiariesData.class));
+
                     adapter.notifyDataSetChanged();
                     pd.dismiss();
                 }
@@ -182,9 +174,30 @@ public class Beneficiaries extends AppCompatActivity {
     private void addBeneficiaries() {
         if(isNotification)
             reference = database.getReference("USER-NOTIFICATION");
-        final EditText input = new EditText(Beneficiaries.this);
+
+        final View dialogView = getLayoutInflater().inflate(R.layout.beneficiaries_reg_view,null);
+        final EditText input =dialogView.findViewById(R.id.name);
+        final EditText input1 = dialogView.findViewById(R.id.root_name);
+        final EditText input2 = dialogView.findViewById(R.id.address);
+
+
+//        LinearLayout layout = new LinearLayout(this);
+//        layout.setOrientation(LinearLayout.VERTICAL);
+//        layout.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 900));
+//
+//
+//        LinearLayout.LayoutParams lparams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,0,1);
+//        LinearLayout.LayoutParams lparams1 = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,0,2);
+//        input.setLayoutParams(lparams);
+//        input1.setLayoutParams(lparams);
+//        input2.setLayoutParams(lparams1);
+//        input.setHint("Enter Name");
+//        input1.setHint("Father's/Husband Name");
+//        input2.setHint("Address");
+//        layout.addView(input);
+//        layout.addView(input1);
+//        layout.addView(input2);
         final AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        final View dialogView = input;
         if(isNotification)
             builder.setTitle("Add "+title+" for all users");
         else
@@ -195,22 +208,23 @@ public class Beneficiaries extends AppCompatActivity {
         builder.setPositiveButton("submit", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                if(input==null||input.getText().length()==0){
+                if(input==null||input.getText().length()==0||input1==null||input1.getText().length()==0||input2==null||input2.getText().length()==0){
+
                     Toast.makeText(Beneficiaries.this,"field are empty",Toast.LENGTH_LONG).show();
                     pd.dismiss();
                     addBeneficiaries();
                     return;
                 }
                 String key = reference.push().getKey();
-                String data  = input.getText().toString();
-                Constant.sendGroupPush(Beneficiaries.this," ",data);
-                final itemData itemData = new itemData(key,data);
-                reference.child(key).setValue(itemData).addOnCompleteListener(new OnCompleteListener<Void>() {
-                    @Override
+                String name=input.getText().toString();
+                String rootName= input1.getText().toString();
+                String address = input2.getText().toString();
+                final BeneficiariesData data = new BeneficiariesData(name,rootName,address,key);
+                reference.child(key).setValue(data).addOnCompleteListener(new OnCompleteListener<Void>() {    @Override
                     public void onComplete(@NonNull Task<Void> task) {
                         if(isNotification)
                             return;
-                        arrayList.add(itemData);
+                        arrayList.add(0,data);
                         adapter.notifyDataSetChanged();
                     }
                 });
