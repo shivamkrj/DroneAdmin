@@ -51,7 +51,6 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
             item.data = title+" @ "+body;
             item.key = notificationReference.push().getKey();
             notificationReference.child(item.key).setValue(item);
-            System.out.println("notificatin is added");
         }
     }
 }

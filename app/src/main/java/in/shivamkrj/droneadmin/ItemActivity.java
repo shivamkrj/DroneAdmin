@@ -134,7 +134,7 @@ public class ItemActivity extends AppCompatActivity {
                             String title[] = s.split("@");
                             String a = title[0];
                             String b = title[1];
-                            s = "<strong>"+" User: "+"</strong>"+a+"\n"+"<strong>"+" Message: "+"</strong>"+b;
+                            s =  "User: "+a+"\n"+"wants to donate: "+b;
                             arrayList.get(i).data = s;
                         }
                     }
