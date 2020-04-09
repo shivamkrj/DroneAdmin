@@ -179,14 +179,14 @@ public class MainActivity extends AppCompatActivity {
                 dialog.dismiss();
             }
         });
-        hindiCardView.setVisibility(View.GONE);
         hindiCardView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this,ChatActivity.class);
-                intent.putExtra("USERNAME",userItems.get(position).username);
+                String mobileNumber = userItems.get(position).username;
+                Intent intent = new Intent();
+                intent.setAction(Intent.ACTION_DIAL); // Action for what intent called for
+                intent.setData(Uri.parse("tel: " + mobileNumber)); // Data with intent respective action on intent
                 startActivity(intent);
-                dialog.dismiss();
             }
         });
         dialog = builder.create();
