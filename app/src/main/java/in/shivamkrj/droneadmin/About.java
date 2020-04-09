@@ -32,14 +32,14 @@ public class About extends AppCompatActivity {
             @Override
             public void onPageStarted(WebView view, String url, Bitmap favicon) {
                 super.onPageStarted(view, url, favicon);
-//                pd.dismiss();
+                pd.dismiss();
 
             }
 
             @Override
             public void onPageFinished(WebView view, String url) {
                 super.onPageFinished(view, url);
-                pd.dismiss();
+//                pd.dismiss();
             }
         });
 

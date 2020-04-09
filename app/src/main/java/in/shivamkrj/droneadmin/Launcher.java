@@ -1,5 +1,6 @@
 package in.shivamkrj.droneadmin;
 
+import android.app.ActivityOptions;
 import android.app.DownloadManager;
 import android.content.Intent;
 import android.support.annotation.NonNull;
@@ -136,6 +137,11 @@ public class Launcher extends AppCompatActivity {
                 Intent i =new Intent(Launcher.this,Beneficiaries.class);
                 i.putExtra("title","Beneficiaries");
                 i.putExtra("node","Beneficiaries");
+                if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.M) {
+                    ActivityOptions o = ActivityOptions.makeScaleUpAnimation(v,0,0, 200,2000);
+                    startActivity(i,o.toBundle());
+                }
+                else
                 startActivity(i);
 //                finish();
             }
