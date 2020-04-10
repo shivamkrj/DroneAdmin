@@ -18,6 +18,7 @@ import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -116,6 +117,56 @@ public class ItemActivity extends AppCompatActivity {
         pd.setCanceledOnTouchOutside(false);
         pd.show();
         arrayList.clear();
+//        reference.addChildEventListener(new ChildEventListener() {
+//            @Override
+//            public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+//                itemData item = dataSnapshot.getValue(itemData.class);
+//                pd.cancel();
+//                if(item.key=="skr"){
+//                    pd.cancel();
+//                    return;
+//                }
+//                if(isNotification){
+//                    Log.d("zzzSize","zzIsNotification");
+//
+//                    for(int i=0;i<arrayList.size();i++){
+//                        String ss = arrayList.get(i).data;
+//                        String title[] = ss.split("@");
+//                        String a = title[0];
+//                        String b = "";
+//                        if(title.length>1)
+//                            b = title[1];
+//                        ss = a+"\n"+"is"+b;
+//                        item.data = ss;
+////                        Log.d("zzzstring",s+" # "+a+" # "+b);
+////                        Log.d("zzzcube",ss);
+//                    }
+//                }
+//                arrayList.add(item);
+//                adapter.notifyDataSetChanged();
+//            }
+//
+//            @Override
+//            public void onChildChanged(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+//
+//            }
+//
+//            @Override
+//            public void onChildRemoved(@NonNull DataSnapshot dataSnapshot) {
+//
+//            }
+//
+//            @Override
+//            public void onChildMoved(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+//
+//            }
+//
+//            @Override
+//            public void onCancelled(@NonNull DatabaseError databaseError) {
+//
+//            }
+//        });
+
         valueEventListener = new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -129,19 +180,26 @@ public class ItemActivity extends AppCompatActivity {
                 for (DataSnapshot postSnapshot: dataSnapshotIterable) {
                     arrayList.add(postSnapshot.getValue(itemData.class));
                     if(isNotification){
-                        for(int i=0;i<arrayList.size();i++){
-                            String s = arrayList.get(i).data;
-                            String title[] = s.split("@");
-                            String a = title[0];
-                            String b = title[1];
-                            s =  "User: "+a+"\n"+"wants to donate: "+b;
-                            arrayList.get(i).data = s;
-                        }
+//                        Log.d("zzzSize",arrayList.size()+"zz");
+//                        for(int i=0;i<arrayList.size();i++){
+//                            String s = arrayList.get(i).data;
+//                            String ss = s;
+//                            String title[] = s.split("@");
+//                            String a = title[0];
+//                            String b = "";
+//                            if(title.length>1)
+//                                b = title[1];
+//                            s = a+"\n"+"is"+b;
+//                            arrayList.get(i).data = s;
+//                            Log.d("zzzstring",s+" # "+a+" # "+b);
+//                            Log.d("zzzcube",ss);
+//                        }
                     }
                     adapter.notifyDataSetChanged();
-                    pd.dismiss();
+
                 }
                 reference.removeEventListener(valueEventListener);
+                pd.cancel();
             }
 
             @Override
